@@ -1,0 +1,30 @@
+document.getElementById("dataFilterForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const device = document.getElementById("deviceSelect").value;
+    const timeScale = document.getElementById("timeScale").value;
+    const day = document.getElementById("daySelect").value;
+    const month = document.getElementById("monthSelect").value;
+    const year = document.getElementById("yearSelect").value;
+
+    const params = new URLSearchParams({
+        device,
+        timeScale,
+        day,
+        month,
+        year,
+    });
+
+    fetch(`/api/data?${params.toString()}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Data received:", data);
+            updateCharts(data);
+        })
+        .catch(err => console.error("Error fetching data:", err));
+});
+
+function updateCharts(data) {
+    // Assume you have a function to refresh your Chart.js charts
+    console.log("Update charts with data:", data);
+}
